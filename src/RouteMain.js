@@ -1,6 +1,5 @@
-import {autoLoginWithAccessToken, getCookie, auth} from './_actions/user_actions';
+import {autoLoginWithAccessToken, getCookie, auth} from './_actions/seller_actions';
 import React, { Suspense } from 'react';
-import TopBar from "./Pages/TopBar";
 import { Switch, Route } from "react-router-dom";
 import Auth from "./Pages/hoc/auth";
 import MainPage from './Pages/MainPage';
@@ -17,7 +16,6 @@ const RouteMain = () => {
     <div>
       {/* 자동로그인 */}
       { autoLoginWithAccessToken()}
-      <Suspense fallback={(<div>Loading...</div>)}>
         <div style={{minWidth:'940px', maxWidth: '1280px', margin: 'auto'}}>
           <Switch>
             <Route exact path="/" component={Auth(MainPage, true)} />
@@ -25,7 +23,8 @@ const RouteMain = () => {
             <Route path="/sellerRegister" component={Auth(RegisterSellerPage,false)} />
           </Switch>
         </div>
-      </Suspense>
+        {/* <Suspense fallback={(<div>Loading...</div>)}> */}
+      {/* </Suspense> */}
     </div>
   );
 };

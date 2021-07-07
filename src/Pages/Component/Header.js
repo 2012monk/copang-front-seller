@@ -100,7 +100,7 @@ function Header(props) {
     };
     const logoutHandler = () => {
         axios.get("https://alconn.co/api/auth/logout").then((response) => {
-            console.log(response);
+            console.log(response.status);
             if (response.status === 200) {
                 props.history.push("/login");
             } else {
@@ -200,7 +200,7 @@ function Header(props) {
                         aria-label="open drawer"
                         onClick={toggleDrawer}
                     >
-                        <MenuIcon conClick={toggleDrawer} />
+                        <MenuIcon onClick={toggleDrawer} />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         COPANG

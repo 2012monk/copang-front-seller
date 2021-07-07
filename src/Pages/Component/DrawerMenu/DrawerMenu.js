@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,7 +38,8 @@ const darkTheme = createMuiTheme({
 });
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: '',
+
   },
   drawer: {
     width: drawerWidth,
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -79,7 +81,15 @@ export default function DrawerMenu(props) {
 
               <ListItem button key="상품 등록">
                 <ListItemIcon><StoreIcon /></ListItemIcon>
-                <ListItemText primary={"상품 등록"} />
+                <Link to="/addproduct">
+                  <ListItemText primary={"상품 등록"} />
+                </Link>
+              </ListItem>
+              <ListItem button key="주문 관리">
+                <ListItemIcon><StoreIcon /></ListItemIcon>
+                <Link to="/addproduct">
+                  <ListItemText primary={"주문 관리"} />
+                </Link>
               </ListItem>
               <ListItem button key="배송 관리">
                 <ListItemIcon><LocalShippingIcon /></ListItemIcon>

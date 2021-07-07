@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withRouter } from "react-router-dom";
-import { loginUser, getCookie } from "../../_actions/user_actions";
+import { loginSeller, getCookie } from "../../_actions/seller_actions";
 import { useDispatch } from "react-redux";
 
 import axios from 'axios';
@@ -72,7 +72,7 @@ function LoginPage(props) {
                 password: Password
             };
 
-            dispatch(loginUser(dataToSubmit))
+            dispatch(loginSeller(dataToSubmit))
                 .then(response => {
                     const accessToken = response.payload.data.access_token;
                     if (response.payload.message === 'success') {

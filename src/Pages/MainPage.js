@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import Header from './Component/Header.js';
 import DrawerMenu from './Component/DrawerMenu/DrawerMenu.js';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import AddNewProductApp from '../AddNewProduct/AddNewProductApp.js';
+import Divider from '@material-ui/core/Divider';
+import Auth from "./hoc/auth";
 export default function MainPage(props) {
     const lightTheme = createMuiTheme({
         palette: {
@@ -21,16 +24,20 @@ export default function MainPage(props) {
         },
     });
     return (
-        <div>
-
+        <>
             <ThemeProvider theme={darkTheme}>
 
-                <Header />
-
-                <DrawerMenu />
+                <Divider orientation="vertical" flexItem />
+                <BrowserRouter>
+                    <Header />
+                    <DrawerMenu />
+                    <Switch>
+                        <Route path="/addproduct" style={{ maxWidth: "70%" }} component={AddNewProductApp} />
+                    </Switch>
+                </BrowserRouter>
             </ThemeProvider>
+        </>
 
-        </div>
 
     );
 }

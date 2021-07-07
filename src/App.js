@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+import GlobalStyles from "./globalStyle.js";
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 //App.js 수정 다시함 또다시함
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Router>
                 <RouteMain />
             </Router>
+        <GlobalStyles /> 
         </Provider>)
 }
 
