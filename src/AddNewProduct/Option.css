@@ -1,0 +1,36 @@
+.btn-block {
+  margin-top: 10px;
+}
+
+.optionListHeader {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.optionListCategory {
+  margin-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #ccc;
+  border-bottom: 2px solid gray;
+}
+
+.optionListCategory div {
+  border: 0px solid #ccc;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.optionListCategory div.col-2,
+.optionListCategory div.col-3.row {
+  text-align: center;
+}
+
+.optionList {
+  background-color: white;
+}
+
+.optionList div {
+  border: 0px solid black;
+}
