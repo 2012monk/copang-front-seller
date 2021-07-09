@@ -7,18 +7,18 @@ import {
 
 
 export default function (state = {}, action) {
-    // console.log(action.payload);
+    console.log(action);
+    console.log(action.payload);
     switch (action.type) {
         case REGISTER_SELLER:
             return { ...state, registerSeller: action.payload }
         case LOGIN_SELLER:
-            return { ...state, loginSuccess: action.payload.data}
+            return { ...state, loginSuccess: action.payload}
         case AUTH_SELLER:
-            return { ...state, userData: action.payload }
+            console.log(typeof action.payload);
+            return { ...state, sellerData: action.payload}
         case LOGOUT_SELLER:
             return { ...state }
-        
-
         default:
             return state;
     }
