@@ -3,12 +3,15 @@ import axios from "axios";
 import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
+import CategoryForm from "./CategoryForm";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
+import AddNewCategoryForm from "./AddNewCategoryForm";
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
+
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -30,6 +33,8 @@ const AddNewProductApp = () => {
     console.log(res.data.data.publicPath);
     setIdx(idx);
     setRefresh((prev) => prev + 1);
+    console.log("이미지 업로드 직후 옵션인포 확인");
+    console.log(optionInfo);
   };
 
   const [subImg, setSubImg] = useState(null);
@@ -78,6 +83,7 @@ const AddNewProductApp = () => {
     itemName: "",
     itemComment: "",
     categoryId: "",
+    brand: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,21 +113,47 @@ const AddNewProductApp = () => {
     });
   };
 
+  useEffect(() => {
+    //console.log("옵션인포 변경됨");
+    console.log(optionInfo);
+  }, [optionInfo]);
+
+  const [shipmentInfoForm, setShipmentInfoForm] = useState({
+    logisticCompany: "",
+    shippingChargeType: "",
+    freeShipOverPrice: 0,
+    releaseDate: 0,
+    shippingPrice: 0,
+  });
+  const shippingHandleChange = (e) => {
+    const { name, value } = e.target;
+    //console.log(shipmentInfoForm);
+    //setShipmentInfoForm({ ...shipmentInfoForm, [name]: value });
+    setProductData({
+      ...productData,
+      shipmentInfoForm: {
+        ...productData.shipmentInfoForm,
+        [name]: value,
+      },
+    });
+    setRefresh((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    console.log(shipmentInfoForm);
+  }, [shipmentInfoForm]);
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
-  // const DetailList = {
-  //   price: product2.price,
-  //   stockQuantity: product2.stockQuantity,
-  //   optionName: product2.optionName,
-  //   optionValue: product2.optionValue,
-  //   mainImg: imgUrl,
-  // };
 
   const [productData, setProductData] = useState({
     itemName: product.itemName,
     itemComment: product.itemComment,
     categoryId: product.categoryId,
+    brand: product.brand,
     itemDetailFormList: [],
+    shipmentInfoForm: {},
   });
+
+  useEffect(() => {}, [productData]);
 
   const addProduct = () => {
     const axiosAddProduct = async () => {
@@ -160,15 +192,22 @@ const AddNewProductApp = () => {
     // const valueSplit = product2.optionValue.split(",");
     // setSingleOptionValue(Object.keys(valueSplit).map((key) => valueSplit[key]));
     // console.log(optionList);
+    console.log("productData 확인");
+    console.log(productData);
+    console.log("옵션인포 확인");
+    console.log(optionInfo);
     setProductData({
       ...productData,
-      itemDetailFormList: [...productData.itemDetailFormList, {...optionInfo}],
+      itemDetailFormList: [
+        ...productData.itemDetailFormList,
+        { ...optionInfo },
+      ],
     });
-    // document.getElementById("optionName").value = "";
-    // document.getElementById("optionValue").value = "";
-    // document.getElementById("price").value = "";
-    // document.getElementById("stockQuantity").value = "";
-    
+    document.getElementById("optionName").value = "";
+    document.getElementById("optionValue").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("stockQuantity").value = "";
+
     //console.log(productData.itemDetailFormList);
     setRefresh((prev) => prev + 1);
   };
@@ -179,16 +218,7 @@ const AddNewProductApp = () => {
   //   setOptionName("");
   // };
 
-  const logisticsList = [
-    "한진택배",
-    "롯데택배",
-    "우체국택배",
-    "CJ대한통운",
-    "로젠택배",
-    "옐로우캡",
-    "일양로지스",
-    "경동택배",
-  ];
+  const logisticsList = [];
 
   /////////////////////////////////////대분류 변수////////////////////////////////////////
   const [largeCategory, setLargeCategory] = useState([]);
@@ -244,14 +274,15 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
+      <AddNewCategoryForm />
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
         <div className="jumbotron">
           <div className="row" style={{ marginBottom: "30px" }}>
-            <h2>노출상품명</h2>
+            <h2>노출상품명 / 브랜드</h2>
           </div>
-          <label htmlFor="insertDisplayName" style={{ color: "dodgerblue" }}>
+          <label htmlFor="itemName" style={{ color: "dodgerblue" }}>
             실제 판매 페이지에 노출되는 상품명입니다
           </label>
           <div className="row">
@@ -259,9 +290,25 @@ const AddNewProductApp = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="노출상품명 입력"
+                placeholder="노출상품명을 입력하세요"
                 id="itemName"
                 name="itemName"
+                required="required"
+                onChange={handleChange}
+              ></input>
+            </div>
+          </div>
+          <label htmlFor="brand" style={{ color: "dodgerblue" }}>
+            브랜드명 입력란입니다
+          </label>
+          <div className="row">
+            <div className="col-6">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="브랜드을 입력하세요"
+                id="brand"
+                name="brand"
                 required="required"
                 onChange={handleChange}
               ></input>
@@ -658,75 +705,76 @@ const AddNewProductApp = () => {
           </div>
           <div className="row">
             <div className="col-4">
-              <label htmlFor="logistics">택배사 리스트</label>
-              <select id="logistics" name="logistics" className="custom-select">
-                {logisticsList.map((entry, index) => {
-                  return (
-                    <option key={index} value={entry}>
-                      {entry}
-                    </option>
-                  );
-                })}
+              <label htmlFor="logisticCompany">택배사 리스트</label>
+              <select
+                id="logisticCompany"
+                name="logisticCompany"
+                className="custom-select"
+                onChange={(e) => shippingHandleChange(e)}
+              >
+                <option value="">택배사 선택</option>
+                <option value="HYUNDAI">롯데글로벌로지스</option>
+                <option value="KGB">KGB택배</option>
+                <option value="EPOST">우체국택배</option>
+                <option value="HANJIN">한진택배</option>
+                <option value="CJGLS">CJ대한통운</option>
               </select>
             </div>
           </div>
           <div className="row">
             <div className="col-4">
-              <label htmlFor="logisticsMethod">배송 방식</label>
+              <label htmlFor="shippingChargeType">배송비 종류</label>
+              <select
+                id="shippingChargeType"
+                name="shippingChargeType"
+                className="custom-select"
+                onChange={(e) => shippingHandleChange(e)}
+              >
+                <option value="">종류 선택</option>
+                <option value="FREE">무료</option>
+                <option value="CONDITIONAL_FREE">조건부 무료</option>
+                <option value="NOT_FREE">유료</option>
+              </select>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-4">
+              <label htmlFor="shippingPrice">배송 비용</label>
               <input
                 type="text"
                 className="form-control"
-                name="logisticsMethod"
-                id="logisticsMethod"
-                placeholder="얼마 이상 무료 배송 etc..."
+                name="shippingPrice"
+                id="shippingPrice"
+                placeholder="배송 비용을 입력하세요"
+                onChange={shippingHandleChange}
               ></input>
             </div>
           </div>
           <div className="row">
             <div className="col-4">
-              <label htmlFor="logisticsPrice">배송 비용</label>
+              <label htmlFor="releaseDate">출고 소요 기간</label>
               <input
                 type="text"
                 className="form-control"
-                name="logisticsPrice"
-                id="logisticsPrice"
-                placeholder="배송 비용을 입력하세요"
+                name="releaseDate"
+                id="releaseDate"
+                placeholder="출고 소요 기간을 일 단위로 입력하세요 예: 1, 2"
+                onChange={shippingHandleChange}
               ></input>
             </div>
           </div>
           <div className="row">
-            <div className="col-6">
-              <label htmlFor="addressOrigin">출고지주소</label>
+            <div className="col-7">
+              <label htmlFor="freeShipOverPrice">
+                무료 배송 가능한 가격조건
+              </label>
               <input
                 type="text"
                 className="form-control"
-                name="addressOrigin"
-                id="addressOrigin"
-                placeholder="출고지 주소를 입력하세요"
-              ></input>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-6">
-              <label htmlFor="addressReturn">반품지주소</label>
-              <input
-                type="text"
-                className="form-control"
-                name="addressReturn"
-                id="addressReturn"
-                placeholder="반품지 주소를 입력하세요"
-              ></input>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-5">
-              <label htmlFor="priceCondition">가격조건</label>
-              <input
-                type="text"
-                className="form-control"
-                name="priceCondition"
-                id="priceCondition"
-                placeholder="가격 조건을 입력하세요"
+                name="freeShipOverPrice"
+                id="freeShipOverPrice"
+                placeholder="조건부 무료 선택시 기준 금액을 입력하세요. 다른 조건 선택시 빈칸으로 놔두세요"
+                onChange={shippingHandleChange}
               ></input>
             </div>
           </div>
@@ -746,6 +794,19 @@ const AddNewProductApp = () => {
                 id="btnConfirm"
               >
                 새로운 상품 등록하기
+              </button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              <button
+                type="button"
+                className="btn btn-danger btn-block"
+                onClick={consoleLog}
+                style={{ height: "100px", fontSize: "2em" }}
+                id="btnConfirm"
+              >
+                콘솔 출력
               </button>
             </div>
           </div>
