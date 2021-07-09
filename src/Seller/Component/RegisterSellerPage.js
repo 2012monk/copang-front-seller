@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { registerSeller } from "../../_actions/user_actions";
+import { registerSeller } from "../../_actions/seller_actions";
 import { useDispatch } from 'react-redux';
 function Copyright() {
     return (

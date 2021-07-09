@@ -1,3 +1,4 @@
+//seller 
 import axios from 'axios';
 import {
     LOGIN_SELLER,
@@ -26,45 +27,55 @@ export function autoLoginWithAccessToken() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${getCookie("accessToken")}`;
         const res = axios.get('https://alconn.co/api/user')
         .then(response => response.data);
+        console.log(res);
     ;
     }
 }
 export function registerSeller(dataToSubmit) {
     const request = axios.post('https://alconn.co/api/auth/signup/seller', dataToSubmit)
         .then(response => response.data);
-
     return {
         type: REGISTER_SELLER,
         payload: request
     }
 }
 
-export function loginUser(dataToSubmit) {
+export function loginSeller(dataToSubmit) {
     const request = axios.post('https://alconn.co/api/auth/login', dataToSubmit)
         .then(response => {
             return response.data;
         });
-
+        
+    console.log(request);
     return {
         type: LOGIN_SELLER,
         payload: request
     }
 }
 
-export function auth() {
+export async function auth() {
     //axios.defaults.header의 accesstoken값으로 사용자 인증
-    const request = axios.get(`${USER_SERVER}/user`)
-        .then(response => response.data)
+    // const request = axios.get(`${USER_SERVER}/seller/user`)
+    // const request = await axios.get("https://alconn.co/api/seller/user")
+    // .then(response => {
+    //     console.log(response.data)
+    //     return response.data.data;
+    // })
+    
+    
+    const request = await axios.get("https://alconn.co/api/seller/user")
+    const data = await request.data;
+        console.log(request);
         // .catch(err =>{
         //     return ({
-        //         type: AUTH_USER,
+        //         type: AUTH_SELLER,
         //         message: err.response.data.message
         //     });
         // });
 
     return {
         type: AUTH_SELLER,
-        payload: request
+        payload: data
     }
 }
 
