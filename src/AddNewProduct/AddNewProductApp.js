@@ -7,10 +7,14 @@ import "./Option.css";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
+
 //import AddNewCategoryForm from "./AddNewCategoryForm";
+=======
+
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
+
 
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
@@ -142,6 +146,7 @@ const AddNewProductApp = () => {
   useEffect(() => {
     console.log(shipmentInfoForm);
   }, [shipmentInfoForm]);
+
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
 
   const [productData, setProductData] = useState({
@@ -195,6 +200,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+
     console.log(optionInfo);
     setProductData({
       ...productData,
@@ -202,6 +208,7 @@ const AddNewProductApp = () => {
         ...productData.itemDetailFormList,
         { ...optionInfo },
       ],
+
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";
@@ -274,7 +281,9 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
+
       {/* <AddNewCategoryForm /> */}
+
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
@@ -497,7 +506,7 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-                
+
               >
                 삭제
               </button> */}
@@ -797,7 +806,9 @@ const AddNewProductApp = () => {
               </button>
             </div>
           </div>
+
           {/* <div className="row">
+
             <div className="col-12">
               <button
                 type="button"
@@ -809,7 +820,9 @@ const AddNewProductApp = () => {
                 콘솔 출력
               </button>
             </div>
+
           </div> */}
+
         </div>
       </div>
     </div>

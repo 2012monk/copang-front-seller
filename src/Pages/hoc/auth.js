@@ -18,7 +18,6 @@ function Auth(Component, option) {
         );
         console.log(user);
         console.log(user.sellerData);
-        console.log(user.sellerData);
 
         try{
             console.log(user.sellerData.role);
@@ -38,16 +37,13 @@ function Auth(Component, option) {
                     loginSuccess = response.payload.data.role === "SELLER";
                     console.log(loginSuccess);
                     console.log(!loginSuccess && (option));
-                    if(loginSuccess) {
-                        props.history.push("/");
-                    }
-                    // else if(!loginSuccess && (option)){
-                    else{
+                    if(!loginSuccess) {
                         props.history.push("/login");
                     }
+                
                 }
                 )
-        }, [dispatch, props.history])
+        }, [props.history])
         
         console.log(loginSuccess);
         // 로그인, 회원가입페이지는 option : false
