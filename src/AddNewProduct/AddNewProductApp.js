@@ -9,6 +9,8 @@ import "./Option.css";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
 //import AddNewCategoryForm from "./AddNewCategoryForm";
 
+//import AddNewCategoryForm from "./AddNewCategoryForm";
+
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
 
@@ -275,6 +277,7 @@ const AddNewProductApp = () => {
   return (
     <div>
       {/* <AddNewCategoryForm /> */}
+
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
@@ -497,7 +500,11 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> b79b38ffb17383133f8583f841d34bf55b85d799
               >
                 삭제
               </button> */}
@@ -797,7 +804,9 @@ const AddNewProductApp = () => {
               </button>
             </div>
           </div>
+
           {/* <div className="row">
+
             <div className="col-12">
               <button
                 type="button"
@@ -809,6 +818,7 @@ const AddNewProductApp = () => {
                 콘솔 출력
               </button>
             </div>
+
           </div> */}
         </div>
       </div>
