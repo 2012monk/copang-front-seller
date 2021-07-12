@@ -3,11 +3,11 @@ import axios from "axios";
 import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
-import CategoryForm from "./CategoryForm";
+//import CategoryForm from "./CategoryForm";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
-import AddNewCategoryForm from "./AddNewCategoryForm";
+//import AddNewCategoryForm from "./AddNewCategoryForm";
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
@@ -274,7 +274,7 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
-      <AddNewCategoryForm />
+      {/* <AddNewCategoryForm /> */}
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
