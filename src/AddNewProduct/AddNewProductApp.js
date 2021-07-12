@@ -493,14 +493,14 @@ const AddNewProductApp = () => {
           <div className="row optionListHeader">
             <div className="col-5">
               {/* <h5>옵션 목록 (총 {productData.itemDetailFormList.length} 개)</h5> */}
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-                // onClick={clickDeleteOption}
+                
               >
                 삭제
-              </button>
+              </button> */}
             </div>
 
             <div className="container-fluid">
@@ -524,24 +524,24 @@ const AddNewProductApp = () => {
                 </div>
                 <div className="col-2 mx-auto">
                   <h5>단가(원)</h5>
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-secondary"
                     id="btnApplyAll"
                   >
                     일괄적용
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="col-2 mx-auto">
                   <h5>재고수량</h5>
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-secondary"
                     id="btnApplyAll"
                   >
                     일괄적용
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -797,7 +797,7 @@ const AddNewProductApp = () => {
               </button>
             </div>
           </div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-12">
               <button
                 type="button"
@@ -809,7 +809,7 @@ const AddNewProductApp = () => {
                 콘솔 출력
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
