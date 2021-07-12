@@ -87,7 +87,7 @@ export default function DrawerMenu(props) {
               </ListItem>
               <ListItem button key="주문 관리">
                 <ListItemIcon><StoreIcon /></ListItemIcon>
-                <Link to="/addproduct">
+                <Link to="/">
                   <ListItemText primary={"주문 관리"} />
                 </Link>
               </ListItem>
