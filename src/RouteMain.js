@@ -2,7 +2,7 @@ import {
   autoLoginWithAccessToken,
   getCookie,
   auth,
-} from "./_actions/user_actions";
+} from "./_actions/seller_actions";
 import React, { Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import Auth from "./Pages/hoc/auth";
