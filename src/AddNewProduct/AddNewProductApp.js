@@ -6,9 +6,12 @@ import "./Option.css";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
+import AddNewCategoryForm from "./AddNewCategoryForm";
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
+
+
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -30,6 +33,8 @@ const AddNewProductApp = () => {
     console.log(res.data.data.publicPath);
     setIdx(idx);
     setRefresh((prev) => prev + 1);
+    console.log("이미지 업로드 직후 옵션인포 확인");
+    console.log(optionInfo);
   };
 
   const [subImg, setSubImg] = useState(null);
@@ -107,6 +112,11 @@ const AddNewProductApp = () => {
     });
   };
 
+  useEffect(() => {
+    console.log("옵션인포 변경됨");
+    console.log(optionInfo);
+  }, [optionInfo])
+
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
   // const DetailList = {
   //   price: product2.price,
@@ -160,15 +170,24 @@ const AddNewProductApp = () => {
     // const valueSplit = product2.optionValue.split(",");
     // setSingleOptionValue(Object.keys(valueSplit).map((key) => valueSplit[key]));
     // console.log(optionList);
+    console.log("productData 확인");
+    console.log(productData);
+    console.log("옵션인포 확인");
+    console.log(optionInfo)
     setProductData({
       ...productData,
-      itemDetailFormList: [...productData.itemDetailFormList, {...optionInfo}],
+
+      itemDetailFormList: [
+        ...productData.itemDetailFormList,
+        { ...optionInfo },
+      ],
+
     });
-    // document.getElementById("optionName").value = "";
-    // document.getElementById("optionValue").value = "";
-    // document.getElementById("price").value = "";
-    // document.getElementById("stockQuantity").value = "";
-    
+    document.getElementById("optionName").value = "";
+    document.getElementById("optionValue").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("stockQuantity").value = "";
+
     //console.log(productData.itemDetailFormList);
     setRefresh((prev) => prev + 1);
   };
@@ -244,6 +263,7 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
+      <AddNewCategoryForm />
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
@@ -450,7 +470,7 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-                // onClick={clickDeleteOption}
+              // onClick={clickDeleteOption}
               >
                 삭제
               </button>
