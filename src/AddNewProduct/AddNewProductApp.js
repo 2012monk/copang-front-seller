@@ -15,7 +15,6 @@ import "./Option.css";
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
 
-
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -200,6 +199,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+
 
     console.log(optionInfo);
     setProductData({
