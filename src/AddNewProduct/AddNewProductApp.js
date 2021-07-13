@@ -3,7 +3,15 @@ import axios from "axios";
 import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
+<<<<<<< HEAD
+<<<<<<< HEAD
+import CategoryForm from "./CategoryForm";
+=======
 //import CategoryForm from "./CategoryForm";
+>>>>>>> b79b38ffb17383133f8583f841d34bf55b85d799
+=======
+//import CategoryForm from "./CategoryForm";
+>>>>>>> 660d990aab8a11989cbf37aacbcc31ccdae8d636
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
@@ -197,6 +205,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+
 
     console.log(optionInfo);
     setProductData({
