@@ -105,7 +105,7 @@ function LoginPage(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          SELLER
+          <Link to="/">SELLER</Link>
         </Typography>
         <form className={classes.form} noValidate>
           <TextField

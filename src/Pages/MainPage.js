@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import { withRouter } from 'react-router';
 import Header from './Component/Header.js';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddNewProductApp from '../AddNewProduct/AddNewProductApp.js';
@@ -75,4 +74,4 @@ function MainPage(props) {
 
     );
 }
-export default withRouter(MainPage);
+export default MainPage

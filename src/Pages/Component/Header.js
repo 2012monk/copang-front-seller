@@ -265,11 +265,7 @@ function Header(props) {
                         ))}
                     </div>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        COPANG
-                    </Typography>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        <Link to="/login">임시 로그인버튼
-                        </Link>
+                        COPANG SELLER
                     </Typography>
 
                     <div className={classes.grow} />

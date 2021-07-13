@@ -65,7 +65,7 @@ export async function auth() {
     
     const request = await axios.get("https://alconn.co/api/seller/user")
     const data = await request.data;
-        console.log(request);
+        console.log(data);
         // .catch(err =>{
         //     return ({
         //         type: AUTH_SELLER,
