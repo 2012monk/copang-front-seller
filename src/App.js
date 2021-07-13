@@ -25,6 +25,7 @@ const App = () => {
       <Router>
         <RouteMain />
       </Router>
+      <GlobalStyles />
     </Provider>
   );
 };
