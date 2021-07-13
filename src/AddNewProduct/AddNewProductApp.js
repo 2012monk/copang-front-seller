@@ -12,6 +12,10 @@ import AddNewCategoryForm from "./AddNewCategoryForm";
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4e340914385f8718b51eae56374eea25727d4de
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -142,6 +146,10 @@ const AddNewProductApp = () => {
   useEffect(() => {
     console.log(shipmentInfoForm);
   }, [shipmentInfoForm]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4e340914385f8718b51eae56374eea25727d4de
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
 
   const [productData, setProductData] = useState({
@@ -195,6 +203,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+<<<<<<< HEAD
     console.log(optionInfo);
     setProductData({
       ...productData,
@@ -202,6 +211,16 @@ const AddNewProductApp = () => {
         ...productData.itemDetailFormList,
         { ...optionInfo },
       ],
+=======
+
+    console.log(optionInfo);
+    setProductData({
+      ...productData,      itemDetailFormList: [
+        ...productData.itemDetailFormList,
+        { ...optionInfo },
+      ],
+
+>>>>>>> b4e340914385f8718b51eae56374eea25727d4de
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";
@@ -497,7 +516,7 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-                // onClick={clickDeleteOption}
+              // onClick={clickDeleteOption}
               >
                 삭제
               </button>
