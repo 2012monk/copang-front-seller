@@ -219,6 +219,12 @@ function Header(props) {
                         <ListItemText primary={"상품 등록"} />
                     </Link>
                 </ListItem>
+                <ListItem button key="상품 목록">
+                    <ListItemIcon><StoreIcon /></ListItemIcon>
+                    <Link to="/listproduct">
+                        <ListItemText primary={"상품 목록"} />
+                    </Link>
+                </ListItem>
                 <ListItem button key="주문 관리">
                     <ListItemIcon><StoreIcon /></ListItemIcon>
                     <Link to="/ordermgr">

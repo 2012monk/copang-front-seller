@@ -295,16 +295,15 @@ export default function EnhancedTable() {
 
   const [trackingNumber, setTrackingNumber] = useState("6865113737890");
   const [logisticCode, setLogisticCode] = useState("EPOST");
-  const [orderItemId, setOrderItemId] = useState(0);
+  const [orderItemId, setOrderItemId] = useState(6031);
   //   const trackingHandler = (e) => {
   //     setTrackingNumber(e.target.value);
   //   };
 
-  const SubmitShipmentHandler = async (orderId) => {
-    setOrderItemId(orderId);
+  const SubmitShipmentHandler = async () => {
     const dataToSubmit = [
       {
-        orderItemId: orderId,
+        orderItemId: orderItemId,
         trackingNumber: trackingNumber,
         logisticCode: logisticCode,
       },
@@ -363,6 +362,7 @@ export default function EnhancedTable() {
         )
       );
 
+      console.log(row);
       console.log(rowarray);
     });
 
@@ -451,12 +451,13 @@ export default function EnhancedTable() {
                 .map((row, index) => {
                   console.log("table map start!");
                   console.log(row);
-                  const isItemSelected = isSelected(row.orderId);
+                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
+                      onClick={(event) => handleClick(event, row.orderId)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -465,7 +466,6 @@ export default function EnhancedTable() {
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
-                          onClick={(event) => handleClick(event, row.orderId)}
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
@@ -486,75 +486,70 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.total}</TableCell>
                       <TableCell align="right">{row.address}</TableCell>
                       <TableCell align="right">
+                        {/* =============================== 송장보내기 모달 띠우기 =============================== */}
                         <button
                           className="btn btn-primary"
-                          key={row.orderId}
-                          onClick={() => {
-                            handleClickOpen(index);
-                          }}
+                          onClick={()=>handleClickOpen(index)}
                         >
                           송장 보내기
                         </button>
+                        <Dialog
+                          open={open==index}
+                          onClose={handleClose}
+                          aria-labelledby="form-dialog-title"
+                        >
+                          <DialogTitle id="form-dialog-title">
+                            Send Tracking Information
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              송장을 보내려면 상품 아이디 번호, 송장번호, 택배사
+                              코드 순으로 입력하세요
+                            </DialogContentText>
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="orderItemId"
+                              type="text"
+                              fullWidth
+                              value={row.orderId}
+                            />
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="trackingNumber"
+                              type="text"
+                              fullWidth
+                              value={trackingNumber}
+                            />
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="logisticCode"
+                              type="text"
+                              fullWidth
+                              value={logisticCode}
+                            />
+                          </DialogContent>
+                          <DialogActions>
+                            <button
+                              onClick={handleClose}
+                              className="btn btn-danger"
+                              style={{ width: "110px" }}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={SubmitShipmentHandler}
+                              className="btn btn-primary"
+                              style={{ width: "110px" }}
+                            >
+                              Send
+                            </button>
+                          </DialogActions>
+                        </Dialog>
+                        {/* =============================== 송장보내기 모달 띠우기 =============================== */}
                       </TableCell>
-                      {/* =============================== 송장보내기 모달 띠우기 =============================== */}
-                      <Dialog
-                        open={open == index}
-                        onClose={handleClose}
-                        aria-labelledby="form-dialog-title"
-                      >
-                        <DialogTitle id="form-dialog-title">
-                          Send Tracking Information
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            송장을 보내려면 상품 아이디 번호, 송장번호, 택배사
-                            코드 순으로 입력하세요
-                          </DialogContentText>
-                          <TextField
-                            autoFocus
-                            margin="dense"
-                            id="orderItemId"
-                            type="text"
-                            fullWidth
-                            value={row.orderId}
-                          />
-                          <TextField
-                            autoFocus
-                            margin="dense"
-                            id="trackingNumber"
-                            type="text"
-                            fullWidth
-                            value={trackingNumber}
-                          />
-                          <TextField
-                            autoFocus
-                            margin="dense"
-                            id="logisticCode"
-                            type="text"
-                            fullWidth
-                            value={logisticCode}
-                          />
-                        </DialogContent>
-                        <DialogActions>
-                          <button
-                            onClick={handleClose}
-                            className="btn btn-danger"
-                            style={{ width: "110px" }}
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            onClick={() => {
-                              SubmitShipmentHandler(row.orderId);
-                            }}
-                            className="btn btn-primary"
-                            style={{ width: "110px" }}
-                          >
-                            Send
-                          </button>
-                        </DialogActions>
-                      </Dialog>
-                      {/* =============================== 송장보내기 모달 띠우기 =============================== */}
                     </TableRow>
                   );
                 })}

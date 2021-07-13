@@ -6,6 +6,8 @@ import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/sty
 import AddNewProductApp from '../AddNewProduct/AddNewProductApp.js';
 import Auth from "./hoc/auth";
 import OrderMgrPage from './OrderMgrPage.js';
+import ListProduct from './ListProduct.js';
+import UpdateProductApp from '../AddNewProduct/UpdateProductApp';
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,7 +63,8 @@ export default function MainPage(props) {
 
                     <Route exact path="/addproduct" component={AddNewProductApp} />
                     <Route path="/ordermgr" component={OrderMgrPage} />
-                    
+                    <Route path="/listproduct" component={ListProduct} />
+                    <Route path="/updateproduct" component={UpdateProductApp} />
                 </Switch>
 
             </ThemeProvider>
