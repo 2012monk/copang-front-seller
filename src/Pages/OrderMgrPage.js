@@ -311,6 +311,7 @@ export default function EnhancedTable() {
     ];
     console.log(typeof dataToSubmit);
     await axios.post("https://alconn.co/api/orders/shipments", dataToSubmit);
+    handleClose();
   };
 
   const [open, setOpen] = useState(-1);
