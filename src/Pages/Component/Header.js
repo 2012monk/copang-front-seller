@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import clsx from 'clsx';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -17,6 +19,17 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import StoreIcon from '@material-ui/icons/Store';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import Store from '@material-ui/icons/Store';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -67,20 +80,21 @@ function Header(props) {
     const [state, setState] = React.useState({
         left: false,
     });
+    const toggleDrawer = (anchor, open) => (event) => {
+        console.log("click!");
+
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const toggleDrawer = (anchor, open) => (event) => {
-        // console.log("click!");
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
 
-
-        setState({ ...state, [anchor]: open });
-    };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -188,20 +202,60 @@ function Header(props) {
             </MenuItem>
         </Menu>
     );
+    const list = (anchor) => (
+        <div
+            className={clsx(classes.list, {
+                [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            })}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
 
+                <ListItem button key="상품 등록">
+                    <ListItemIcon><StoreIcon /></ListItemIcon>
+                    <Link to="/addproduct">
+                        <ListItemText primary={"상품 등록"} />
+                    </Link>
+                </ListItem>
+                <ListItem button key="주문 관리">
+                    <ListItemIcon><StoreIcon /></ListItemIcon>
+                    <Link to="/ordermgr">
+                        <ListItemText primary={"주문 관리"} />
+                    </Link>
+                </ListItem>
+                <ListItem button key="배송 관리">
+                    <ListItemIcon><LocalShippingIcon /></ListItemIcon>
+                    <ListItemText primary={"배송 관리"} />
+                </ListItem>
+
+            </List>
+
+            <Divider />
+            <List>
+                <ListItem button key="고객 문의">
+                    <ListItemIcon><SupervisorAccountIcon /></ListItemIcon>
+                    <ListItemText primary={"고객 문의"} />
+                </ListItem>
+            </List>
+        </div>
+    );
     return (
         <div className={classes.grow} >
             <AppBar position="fixed" className={classes.appBar}>
+
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={toggleDrawer}
-                    >
-                        <MenuIcon onClick={toggleDrawer} />
-                    </IconButton>
+                    <div>
+                        {['left'].map((anchor) => (
+                            <React.Fragment key={anchor}>
+                                <Button onClick={toggleDrawer(anchor, true)}><MenuIcon style={{ color: "white" }} /></Button>
+                                <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                                    {list(anchor)}
+                                </Drawer>
+                            </React.Fragment>
+                        ))}
+                    </div>
                     <Typography className={classes.title} variant="h6" noWrap>
                         COPANG
                     </Typography>

@@ -3,11 +3,14 @@ import axios from "axios";
 import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
-import CategoryForm from "./CategoryForm";
+//import CategoryForm from "./CategoryForm";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
-import AddNewCategoryForm from "./AddNewCategoryForm";
+
+//import AddNewCategoryForm from "./AddNewCategoryForm";
+=======
+
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
@@ -142,6 +145,7 @@ const AddNewProductApp = () => {
   useEffect(() => {
     console.log(shipmentInfoForm);
   }, [shipmentInfoForm]);
+
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
 
   const [productData, setProductData] = useState({
@@ -195,6 +199,8 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+
+
     console.log(optionInfo);
     setProductData({
       ...productData,
@@ -202,6 +208,7 @@ const AddNewProductApp = () => {
         ...productData.itemDetailFormList,
         { ...optionInfo },
       ],
+
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";
@@ -274,7 +281,9 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
-      <AddNewCategoryForm />
+
+      {/* <AddNewCategoryForm /> */}
+
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
       <div className="container-fluid">
@@ -493,14 +502,14 @@ const AddNewProductApp = () => {
           <div className="row optionListHeader">
             <div className="col-5">
               {/* <h5>옵션 목록 (총 {productData.itemDetailFormList.length} 개)</h5> */}
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-                // onClick={clickDeleteOption}
+
               >
                 삭제
-              </button>
+              </button> */}
             </div>
 
             <div className="container-fluid">
@@ -524,24 +533,24 @@ const AddNewProductApp = () => {
                 </div>
                 <div className="col-2 mx-auto">
                   <h5>단가(원)</h5>
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-secondary"
                     id="btnApplyAll"
                   >
                     일괄적용
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="col-2 mx-auto">
                   <h5>재고수량</h5>
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-secondary"
                     id="btnApplyAll"
                   >
                     일괄적용
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -797,7 +806,9 @@ const AddNewProductApp = () => {
               </button>
             </div>
           </div>
-          <div className="row">
+
+          {/* <div className="row">
+
             <div className="col-12">
               <button
                 type="button"
@@ -809,7 +820,9 @@ const AddNewProductApp = () => {
                 콘솔 출력
               </button>
             </div>
-          </div>
+
+          </div> */}
+
         </div>
       </div>
     </div>
