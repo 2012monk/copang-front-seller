@@ -3,7 +3,6 @@ import axios from "axios";
 import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
-//import CategoryForm from "./CategoryForm";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
@@ -197,6 +196,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
+
     console.log(optionInfo);
     setProductData({
       ...productData,
