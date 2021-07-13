@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -21,6 +21,8 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import axios from "axios";
+import { USER_SERVER } from "../Pages/Config.js";
+import { getOrderList } from "../_actions/seller_actions.js";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -73,11 +75,27 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 //     } ],
 //     "code" : 200
 //   }
-function createData(name, option, optionValue, price, amount, total) {
-  return { name, option, optionValue, price, amount, total };
+function createData(
+  orderId,
+  name,
+  optionName,
+  optionValue,
+  price,
+  amount,
+  total,
+  address
+) {
+  return {
+    orderId,
+    name,
+    optionName,
+    optionValue,
+    price,
+    amount,
+    total,
+    address,
+  };
 }
-
-const rows = [];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -106,13 +124,14 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "name", numeric: false, disablePadding: true, label: "전체 선택" },
-  { id: "option", numeric: true, disablePadding: false, label: "옵션명" },
-  { id: "optionValue", numeric: true, disablePadding: false, label: "옵션값" },
+  { id: "orderId", numeric: true, disablePadding: true, label: "주문번호" },
+  { id: "name", numeric: false, disablePadding: true, label: "제품" },
+  { id: "optionName", numeric: false, disablePadding: false, label: "옵션명" },
+  { id: "optionValue", numeric: false, disablePadding: false, label: "옵션값" },
   { id: "price", numeric: true, disablePadding: false, label: "가격" },
   { id: "amount", numeric: true, disablePadding: false, label: "수량" },
-  { id: "address", numeric: true, disablePadding: false, label: "수량" },
-  { id: "amount", numeric: true, disablePadding: false, label: "총액" },
+  { id: "total", numeric: true, disablePadding: false, label: "총액" },
+  { id: "address", numeric: false, disablePadding: false, label: "주소" },
 ];
 
 function EnhancedTableHead(props) {
@@ -273,7 +292,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable() {
   ///////////////////////////////////// 형준 수정 부분 /////////////////////////////////////////
-  const classes = useStyles();
+
   const [trackingNumber, setTrackingNumber] = useState("6865113737890");
   const [logisticCode, setLogisticCode] = useState("EPOST");
   const [orderItemId, setOrderItemId] = useState(6031);
@@ -303,13 +322,55 @@ export default function EnhancedTable() {
     setOpen(false);
   };
   ///////////////////////////////////// 형준 수정 부분 /////////////////////////////////////////
-
+  let rowarray = [];
+  // let rows = [createData("노트북", "ram", "8gb", 100000, 3, 400000, "성남시")];
+  // rows.push(createData("노트북", "ram", "32gb", 100000, 3, 400000, "서울시"));
+  const classes = useStyles();
+  const [rows, setRows] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("option");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const getOrderList = async () => {
+    console.log("getOrderList Called");
+    const request = await axios.get(`${USER_SERVER}/orders/seller`);
+    const data = await request.data.data;
+
+    console.log(data);
+    // function createData(name, option, optionValue, price, amount, total) {
+    //     return { name, option, optionValue, price, amount, total };
+    // }
+
+    data.map((row, index) => {
+      console.log("data map");
+      // console.log(row);
+      // console.log(row.orderItems);
+      console.log(row.sellerOrderId);
+      rowarray.push(
+        createData(
+          row.orderItems[0].orderItemId,
+          row.orderItems[0].itemName,
+          row.orderItems[0].optionName,
+          row.orderItems[0].optionValue,
+          row.orderItems[0].price,
+          row.totalAmount,
+          row.totalPrice,
+          row.address.address
+        )
+      );
+
+      console.log(row);
+      console.log(rowarray);
+    });
+
+    setRows(rowarray);
+  };
+  useEffect(() => {
+    getOrderList();
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -326,12 +387,12 @@ export default function EnhancedTable() {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, orderId) => {
+    const selectedIndex = selected.indexOf(orderId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, orderId);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -362,7 +423,7 @@ export default function EnhancedTable() {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, { rows }.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -388,17 +449,19 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
+                  console.log("table map start!");
+                  console.log(row);
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.orderId)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.orderId}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -413,12 +476,80 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.orderId}
                       </TableCell>
-                      <TableCell align="right">{row.option}</TableCell>
+                      <TableCell align="right">{row.name}</TableCell>
+                      <TableCell align="right">{row.optionName}</TableCell>
                       <TableCell align="right">{row.optionValue}</TableCell>
                       <TableCell align="right">{row.price}</TableCell>
                       <TableCell align="right">{row.amount}</TableCell>
+                      <TableCell align="right">{row.total}</TableCell>
+                      <TableCell align="right">{row.address}</TableCell>
+                      <TableCell align="right">
+                        {/* =============================== 송장보내기 모달 띠우기 =============================== */}
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleClickOpen}
+                        >
+                          송장 보내기
+                        </button>
+                        <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="form-dialog-title"
+                        >
+                          <DialogTitle id="form-dialog-title">
+                            Send Tracking Information
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              송장을 보내려면 상품 아이디 번호, 송장번호, 택배사
+                              코드 순으로 입력하세요
+                            </DialogContentText>
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="orderItemId"
+                              type="text"
+                              fullWidth
+                              value={row.orderId}
+                            />
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="trackingNumber"
+                              type="text"
+                              fullWidth
+                              value={trackingNumber}
+                            />
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="logisticCode"
+                              type="text"
+                              fullWidth
+                              value={logisticCode}
+                            />
+                          </DialogContent>
+                          <DialogActions>
+                            <button
+                              onClick={handleClose}
+                              className="btn btn-danger"
+                              style={{ width: "110px" }}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={SubmitShipmentHandler}
+                              className="btn btn-primary"
+                              style={{ width: "110px" }}
+                            >
+                              Send
+                            </button>
+                          </DialogActions>
+                        </Dialog>
+                        {/* =============================== 송장보내기 모달 띠우기 =============================== */}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -440,66 +571,6 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {/* =============================== 송장보내기 모달 띠우기 =============================== */}
-      <button className="btn btn-primary" onClick={handleClickOpen}>
-        송장 보내기
-      </button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          Send Tracking Information
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            송장을 보내려면 상품 아이디 번호, 송장번호, 택배사 코드 순으로
-            입력하세요
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="orderItemId"
-            type="text"
-            fullWidth
-            value={orderItemId}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="trackingNumber"
-            type="text"
-            fullWidth
-            value={trackingNumber}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="logisticCode"
-            type="text"
-            fullWidth
-            value={logisticCode}
-          />
-        </DialogContent>
-        <DialogActions>
-          <button
-            onClick={handleClose}
-            className="btn btn-danger"
-            style={{ width: "110px" }}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={SubmitShipmentHandler}
-            className="btn btn-primary"
-            style={{ width: "110px" }}
-          >
-            Send
-          </button>
-        </DialogActions>
-      </Dialog>
-      {/* =============================== 송장보내기 모달 띠우기 =============================== */}
       {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"

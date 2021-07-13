@@ -4,7 +4,6 @@ import {
   auth,
 } from "./_actions/seller_actions";
 import React, { Suspense } from "react";
-
 import { Switch, Route, useRoute } from "react-router-dom";
 import Auth from "./Pages/hoc/auth";
 import AddNewProductApp from "./AddNewProduct/AddNewProductApp.js";
