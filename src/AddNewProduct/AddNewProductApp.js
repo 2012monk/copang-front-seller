@@ -196,7 +196,6 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
-
     console.log(optionInfo);
     setProductData({
       ...productData,
