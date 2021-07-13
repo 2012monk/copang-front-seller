@@ -17,28 +17,26 @@ function Auth(Component, option) {
     console.log(user);
     console.log(user.sellerData);
 
-    try {
-      console.log(user.sellerData.role);
-    } catch (err) {
-      console.log(err);
-    }
-
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
-      console.log("effect called!");
-      console.log(dispatch(auth()));
       dispatch(auth()).then(async (response) => {
-        console.log(response.payload.data.role);
         let loginSuccess = await response.payload.data.role === "SELLER";
-        console.log(loginSuccess);
-        console.log(!loginSuccess && option);
-        if (!loginSuccess) {
-          props.history.push("/login");
+        console.log(loginSuccess&&loginSuccess);
+        if(!(props.history.location.pathname==="/login"||props.history.location.pathname==="/sellerRegister")){
+          if (!loginSuccess) {
+            props.history.push("/login");
+          }
         }
       })
+      
+      
       .catch((err)=>{
-        props.history.push("/login");
+        if(!(props.history.location.pathname==="/login"||props.history.location.pathname==="/sellerRegister")) {
+          if(user.sellerData===undefined)
+            props.history.push("/login");
+        }
       }
       );
     }, [props.history]);

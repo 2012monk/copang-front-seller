@@ -77,6 +77,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 //   }
 function createData(
   orderId,
+  orderDate,
   name,
   optionName,
   optionValue,
@@ -87,6 +88,7 @@ function createData(
 ) {
   return {
     orderId,
+    orderDate,
     name,
     optionName,
     optionValue,
@@ -124,14 +126,15 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "orderId", numeric: true, disablePadding: true, label: "주문번호" },
+  { id: "orderId", numeric: false, disablePadding: true, label: "주문번호" },
+  { id: "orderDate", numeric: false, disablePadding: true, label: "주문일시" },
   { id: "name", numeric: false, disablePadding: true, label: "제품" },
-  { id: "optionName", numeric: false, disablePadding: false, label: "옵션명" },
-  { id: "optionValue", numeric: false, disablePadding: false, label: "옵션값" },
+  { id: "optionName", numeric: true, disablePadding: false, label: "옵션명" },
+  { id: "optionValue", numeric: true, disablePadding: false, label: "옵션값" },
   { id: "price", numeric: true, disablePadding: false, label: "가격" },
   { id: "amount", numeric: true, disablePadding: false, label: "수량" },
   { id: "total", numeric: true, disablePadding: false, label: "총액" },
-  { id: "address", numeric: false, disablePadding: false, label: "주소" },
+  { id: "address", numeric: true, disablePadding: false, label: "주소" },
 ];
 
 function EnhancedTableHead(props) {
@@ -162,7 +165,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.numeric ? "right" : "center" }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -348,12 +351,13 @@ export default function EnhancedTable() {
 
     data.map((row, index) => {
       console.log("data map");
-      // console.log(row);
+      console.log(row);
       // console.log(row.orderItems);
       console.log(row.sellerOrderId);
       rowarray.push(
         createData(
           row.orderItems[0].orderItemId,
+          row.orderDate,
           row.orderItems[0].itemName,
           row.orderItems[0].optionName,
           row.orderItems[0].optionValue,
@@ -479,6 +483,7 @@ export default function EnhancedTable() {
                       >
                         {row.orderId}
                       </TableCell>
+                      <TableCell align="right">{row.orderDate}</TableCell>
                       <TableCell align="right">{row.name}</TableCell>
                       <TableCell align="right">{row.optionName}</TableCell>
                       <TableCell align="right">{row.optionValue}</TableCell>

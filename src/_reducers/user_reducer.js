@@ -15,7 +15,7 @@ export default function (state = {}, action) {
         case LOGIN_SELLER:
             return { ...state, loginSuccess: action.payload}
         case AUTH_SELLER:
-            console.log(typeof action.payload);
+            console.log(typeof action);
             return { ...state, sellerData: action.payload}
         case LOGOUT_SELLER:
             return { ...state }
