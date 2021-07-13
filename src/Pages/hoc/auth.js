@@ -30,7 +30,7 @@ function Auth(Component, option) {
       console.log(dispatch(auth()));
       dispatch(auth()).then(async (response) => {
         console.log(response.payload.data.role);
-        const loginSuccess = response.payload.data.role === "SELLER";
+        let loginSuccess = await response.payload.data.role === "SELLER";
         console.log(loginSuccess);
         console.log(!loginSuccess && option);
         if (!loginSuccess) {

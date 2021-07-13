@@ -293,9 +293,9 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable() {
   ///////////////////////////////////// 형준 수정 부분 /////////////////////////////////////////
 
-  const [trackingNumber, setTrackingNumber] = useState("6865113737890");
-  const [logisticCode, setLogisticCode] = useState("EPOST");
-  const [orderItemId, setOrderItemId] = useState(6031);
+  const [trackingNumber, setTrackingNumber] = useState("640865871414");
+  const [logisticCode, setLogisticCode] = useState("CJGLS");
+  const [orderItemId, setOrderItemId] = useState(0);
   //   const trackingHandler = (e) => {
   //     setTrackingNumber(e.target.value);
   //   };
