@@ -15,10 +15,9 @@ import CategoryForm from "./CategoryForm";
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
+//import AddNewCategoryForm from "./AddNewCategoryForm";
 
 //import AddNewCategoryForm from "./AddNewCategoryForm";
-=======
-
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
@@ -153,7 +152,6 @@ const AddNewProductApp = () => {
   useEffect(() => {
     console.log(shipmentInfoForm);
   }, [shipmentInfoForm]);
-
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
 
   const [productData, setProductData] = useState({
@@ -216,7 +214,6 @@ const AddNewProductApp = () => {
         ...productData.itemDetailFormList,
         { ...optionInfo },
       ],
-
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";
@@ -289,12 +286,11 @@ const AddNewProductApp = () => {
   }, [refresh]);
   return (
     <div>
-
       {/* <AddNewCategoryForm /> */}
 
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ marginTop: "30px" }}>
         <div className="jumbotron">
           <div className="row" style={{ marginBottom: "30px" }}>
             <h2>노출상품명 / 브랜드</h2>
@@ -514,7 +510,6 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-
               >
                 삭제
               </button> */}
@@ -731,7 +726,7 @@ const AddNewProductApp = () => {
               >
                 <option value="">택배사 선택</option>
                 <option value="HYUNDAI">롯데글로벌로지스</option>
-                <option value="KGB">KGB택배</option>
+                <option value="KGB">로젠택배</option>
                 <option value="EPOST">우체국택배</option>
                 <option value="HANJIN">한진택배</option>
                 <option value="CJGLS">CJ대한통운</option>
@@ -830,7 +825,6 @@ const AddNewProductApp = () => {
             </div>
 
           </div> */}
-
         </div>
       </div>
     </div>
