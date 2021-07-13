@@ -19,7 +19,6 @@ const RouteMain = () => {
     <>
       {/* 자동로그인 */}
       {autoLoginWithAccessToken()}
-
       <div style={{ minWidth: "940px", maxWidth: "1280px", margin: "auto" }}>
         {/* <Header /> */}
         <Switch>
