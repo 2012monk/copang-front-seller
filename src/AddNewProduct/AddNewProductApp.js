@@ -4,10 +4,14 @@ import "./Option.css";
 // import Option from "./Option";
 //import DisplayProductName from "./DisplayProductName";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CategoryForm from "./CategoryForm";
 =======
 //import CategoryForm from "./CategoryForm";
 >>>>>>> b79b38ffb17383133f8583f841d34bf55b85d799
+=======
+//import CategoryForm from "./CategoryForm";
+>>>>>>> 660d990aab8a11989cbf37aacbcc31ccdae8d636
 // import ImgUpload from "./ImgUpload";
 // import WriteProductDetail from "./WriteProductDetail";
 // import NewProductConfirmButton from "./NewProductConfirmButton";
@@ -19,10 +23,6 @@ import CategoryForm from "./CategoryForm";
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b4e340914385f8718b51eae56374eea25727d4de
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -153,10 +153,7 @@ const AddNewProductApp = () => {
   useEffect(() => {
     console.log(shipmentInfoForm);
   }, [shipmentInfoForm]);
-<<<<<<< HEAD
-=======
 
->>>>>>> b4e340914385f8718b51eae56374eea25727d4de
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
 
   const [productData, setProductData] = useState({
@@ -210,15 +207,7 @@ const AddNewProductApp = () => {
     console.log("productData 확인");
     console.log(productData);
     console.log("옵션인포 확인");
-<<<<<<< HEAD
-    console.log(optionInfo);
-    setProductData({
-      ...productData,
-      itemDetailFormList: [
-        ...productData.itemDetailFormList,
-        { ...optionInfo },
-      ],
-=======
+
 
     console.log(optionInfo);
     setProductData({
@@ -228,7 +217,6 @@ const AddNewProductApp = () => {
         { ...optionInfo },
       ],
 
->>>>>>> b4e340914385f8718b51eae56374eea25727d4de
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";
