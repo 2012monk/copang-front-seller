@@ -280,7 +280,7 @@ const AddNewProductApp = () => {
 
       {/* ############################### 상품명 입력 부분 ################################ */}
       {/* ############################################################################################ */}
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ marginTop: "30px" }}>
         <div className="jumbotron">
           <div className="row" style={{ marginBottom: "30px" }}>
             <h2>노출상품명 / 브랜드</h2>
@@ -500,11 +500,6 @@ const AddNewProductApp = () => {
                 type="button"
                 className="btn btn-secondary"
                 id="deleteOption"
-<<<<<<< HEAD
-                
-=======
-
->>>>>>> b79b38ffb17383133f8583f841d34bf55b85d799
               >
                 삭제
               </button> */}
@@ -721,7 +716,7 @@ const AddNewProductApp = () => {
               >
                 <option value="">택배사 선택</option>
                 <option value="HYUNDAI">롯데글로벌로지스</option>
-                <option value="KGB">KGB택배</option>
+                <option value="KGB">로젠택배</option>
                 <option value="EPOST">우체국택배</option>
                 <option value="HANJIN">한진택배</option>
                 <option value="CJGLS">CJ대한통운</option>
