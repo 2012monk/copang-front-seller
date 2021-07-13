@@ -164,7 +164,7 @@ function Header(props) {
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
+                    <Badge color="secondary">
                         <MailIcon />
                     </Badge>
                 </IconButton>
@@ -172,7 +172,7 @@ function Header(props) {
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
+                    <Badge color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
@@ -219,6 +219,12 @@ function Header(props) {
                         <ListItemText primary={"상품 등록"} />
                     </Link>
                 </ListItem>
+                <ListItem button key="상품 목록">
+                    <ListItemIcon><StoreIcon /></ListItemIcon>
+                    <Link to="/listproduct">
+                        <ListItemText primary={"상품 목록"} />
+                    </Link>
+                </ListItem>
                 <ListItem button key="주문 관리">
                     <ListItemIcon><StoreIcon /></ListItemIcon>
                     <Link to="/ordermgr">
@@ -236,7 +242,9 @@ function Header(props) {
             <List>
                 <ListItem button key="고객 문의">
                     <ListItemIcon><SupervisorAccountIcon /></ListItemIcon>
-                    <ListItemText primary={"고객 문의"} />
+                    <Link to="replyquestion">
+                        <ListItemText primary={"고객 문의"} />
+                    </Link>
                 </ListItem>
             </List>
         </div>
@@ -267,12 +275,12 @@ function Header(props) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
+                            <Badge color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>

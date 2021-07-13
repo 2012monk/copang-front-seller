@@ -37,7 +37,7 @@ function Auth(Component, option) {
           props.history.push("/login");
         }
       });
-    }, [dispatch, props.history]);
+    }, [props.history]);
 
     // 로그인, 회원가입페이지는 option : false
 
