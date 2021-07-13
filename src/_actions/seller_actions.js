@@ -64,14 +64,13 @@ export async function auth() {
     
     
     const request = await axios.get("https://alconn.co/api/seller/user")
+    .catch(err =>{
+        return ({
+            type: AUTH_SELLER,
+            message: err
+        });
+    });
     const data = await request.data;
-        console.log(request);
-        // .catch(err =>{
-        //     return ({
-        //         type: AUTH_SELLER,
-        //         message: err.response.data.message
-        //     });
-        // });
 
     return {
         type: AUTH_SELLER,

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-
 import Header from './Component/Header.js';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddNewProductApp from '../AddNewProduct/AddNewProductApp.js';
 import Auth from "./hoc/auth";
 import OrderMgrPage from './OrderMgrPage.js';
+import ListProduct from './ListProduct.js';
+// import UpdateProductApp from '../AddNewProduct/UpdateProductApp';
+import ReplyQuestion from '../ReplyQuestion.js';
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MainPage(props) {
+function MainPage(props) {
     const classes = useStyles();
     const lightTheme = createMuiTheme({
         palette: {
@@ -61,7 +63,9 @@ export default function MainPage(props) {
 
                     <Route exact path="/addproduct" component={AddNewProductApp} />
                     <Route path="/ordermgr" component={OrderMgrPage} />
-                    
+                    <Route path="/listproduct" component={ListProduct} />
+                    {/* <Route path="/updateproduct" component={UpdateProductApp} /> */}
+                    <Route path="/replyquestion" component={ReplyQuestion} />
                 </Switch>
 
             </ThemeProvider>
@@ -70,3 +74,4 @@ export default function MainPage(props) {
 
     );
 }
+export default MainPage
